@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+body {
+  background: #f6f5f7;
+  font-family: "Montserrat", sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Umożliwia kontenerowi zajmowanie pełnej wysokości okna */
+}
+
+main {
+  flex: 1; /* Pozwala main zajmować dostępne miejsce */
+}
+
