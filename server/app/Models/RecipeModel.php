@@ -53,5 +53,11 @@ class RecipeModel extends Model
                     ->limit($limit)
                     ->findAll();
     }
+
+    public function getRecipesByDifficulty(string $difficulty)
+    {
+        return $this->where('difficulty', $difficulty)->findAll();
+    }
+
 }
 
