@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
-import Loader from '../../components/Loader/Loader';
-import './Recipes.css';
+import '../Recipes/Recipes.css';
 
-function Recipes() {
+function RecipesByCategory() {
+  const { categoryId } = useParams();
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8080/recipes/all')
+    fetch(`http://localhost:8080/recipes/category/${categoryId}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to fetch recipes');
+          throw new Error('Failed to fetch recipes for category');
         }
         return response.json();
       })
@@ -24,10 +25,10 @@ function Recipes() {
         setError(err.message);
         setLoading(false);
       });
-  }, []);
+  }, [categoryId]);
 
   if (loading) {
-    return <Loader />;
+    return <div>Loading...</div>;
   }
 
   if (error) {
@@ -36,11 +37,12 @@ function Recipes() {
 
   return (
     <div className="recipes">
-      {recipes.map((recipe) => {
-        return <RecipeCard key={recipe.recipe_id || recipe.title} recipe={recipe} />;
-      })}
+        <h2></h2>
+      {recipes.map((recipe) => (
+        <RecipeCard key={recipe.recipe_id} recipe={recipe} />
+      ))}
     </div>
   );
 }
 
-export default Recipes;
+export default RecipesByCategory;
